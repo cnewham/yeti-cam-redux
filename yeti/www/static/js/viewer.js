@@ -79,33 +79,6 @@ function init() {
 }
 
 $(function () {
-
-  socket.on('status_update', function (cam) {
-    updateStatus(cam.name);
-  });
-
-  socket.on('camera_capture', function (cam) {
-    updateImage(cam.name);
-  });
-
-  socket.on('camera_status', function (cams) {
-    console.log(cams);
-
-    $.each(cams, function(idx, cam) {
-        toggleOnlineStatus(cam);
-    });
-  });
-
-  socket.on('connect', function () {
-    console.log('Socket connected...');
-  });
-
-  $.addTemplateFormatter({
-    ConfigUrlFormatter : function(value, template) {
-            return Flask.url_for("configure", { "name":value });
-        }
-  });
-
     init();
 });
 

@@ -25,3 +25,8 @@ def captures(name, filename):
         abort(HTTPStatus.NOT_FOUND)
 
     return send_from_directory(upload, filename)
+
+
+@app.route('/weather')
+def weather():
+    return render_template('weather.html')

@@ -4,7 +4,7 @@ function refreshWeatherData(force, callback) {
 
   $.ajax({
         type: "GET",
-        url: "api/v2/weather",
+        url: "api/v1/weather",
         dataType: "json",
         error: function (error) {
           showAlert("An error occurred: " + error.status + " " + error.statusText, color=alerts.red);

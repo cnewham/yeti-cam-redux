@@ -98,14 +98,6 @@ function isNumber(n) {
 };
 
 $(function () {
-    socket.on('connect', function () {
-        console.log('Socket connected...');
-    });
-
-    socket.on('config_updated', function(data) {
-        updateStatus(data.status);
-    });
-
     getConfig();
 
     $("#config").submit(function (e) {
