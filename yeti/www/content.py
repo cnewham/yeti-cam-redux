@@ -1,6 +1,6 @@
 import os
 from yeti import app
-from yeti.config.uploads import UPLOAD_DIR
+from yeti.uploads import UPLOAD_DIR
 from flask import render_template, send_from_directory, abort
 from http import HTTPStatus
 

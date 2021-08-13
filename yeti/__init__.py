@@ -26,4 +26,5 @@ logging.getLogger('').addHandler(handler)
 # INITIALIZE SERVER
 
 app = Flask(__name__, static_folder='www/static', template_folder='www/templates')
+app.config['ALLOWED_EXTENSIONS'] = ['JPG', 'JPEG', 'TXT', 'H264']
 
