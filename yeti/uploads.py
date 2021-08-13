@@ -27,7 +27,7 @@ def get_available_uploads():
 
 def process(name, upload, args):
     uploaddir = UPLOAD_DIR + "/" + name
-    event = args["event"]
+    event = args["event"].strip()
 
     try:
         os.makedirs(uploaddir)

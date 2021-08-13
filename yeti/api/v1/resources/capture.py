@@ -32,4 +32,4 @@ class CaptureApi(Resource):
             abort(HTTPStatus.BAD_REQUEST)
 
     def allowed_file(self, filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].upper() in app.config['ALLOWED_EXTENSIONS']
+        return '.' in filename and filename.rsplit('.', 1)[1].upper() in app.config_values['ALLOWED_EXTENSIONS']
