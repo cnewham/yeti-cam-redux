@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>YETI CAM</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {{ JSGlue.include() }}
+    <script type=text/javascript src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type=text/javascript src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect('ws://' + document.domain + ':' + {{config['SOCKET_PORT']}} + '/web');
+        var name = '{{ name }}'
+    </script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/configure.js') }}"></script>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href='https://fonts.googleapis.com/css?family=Black+Ops+One' rel='stylesheet' type='text/css'>
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+<body style="background-image: url({{ url_for('static', filename='images/background-dark.png') }}); background-repeat: repeat">
+
+    <!-- Primary Page Layout
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row" style="margin-top: 10%">
+            <div class="twelve columns">
+                <h4>CONFIGURE [{{ name }}]
+                    <span>
+                        <div id="indicator-red" class="icon" style="content: url({{ url_for('static', filename='images/indicator-red.png') }});"></div>
+                        <div id="indicator-yellow" class="icon" style="content: url({{ url_for('static', filename='images/indicator-yellow.png') }});"></div>
+                        <div id="indicator-green" class="icon" style="content: url({{ url_for('static', filename='images/indicator-green.png') }});"></div>
+                    </span>
+                </h4>
+            </div>
+        </div>
+        
+        <form id="config">
+            <!--Image configurations-->
+            <div class="row" style="margin-top: 5%">
+                <h5>Image</h5>
+            </div>
+            <div class="row"> 
+                <div class="six columns">
+                    <label for="image_dir">Image Directory</label>
+                    <input class="u-full-width" type="text" id="image_dir" name="image_dir">
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <label for="image_prefix">Image Prefix</label>
+                    <input class="u-full-width" type="text" id="image_prefix" name="image_prefix">
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    <label for="timer_interval">Image Capture Timer (min)</label>
+                    <input class="u-full-width" type="number" id="timer_interval" name="timer_interval">
+                </div>
+            </div>
+            <div class="row">
+                <div class="two columns">
+                    <label for="image_width">Width</label>
+                    <input class="u-full-width" type="number" id="image_width" name="image_width">
+                </div>
+                <div class="two columns">
+                    <label for="image_height">Height</label>
+                    <input class="u-full-width" type="number" id="image_height" name="image_height">
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    <label for="timer_interval">Image Quality</label>
+                    <input class="u-full-width" type="number" id="image_quality" name="image_quality">
+                </div>
+            </div>
+            <div class="row">
+                <label class="three columns">
+                    <input type="checkbox" id="image_vflip" name="image_vflip">
+                    <span class="label-body">Flip Vertically</span>
+                </label>
+                <label class="three columns">
+                    <input type="checkbox" id="image_hflip" name="image_hflip">
+                    <span class="label-body">Flip Horizontally</span>
+                </label>
+            </div>
+            <div class="row">
+                <div class="three columns">
+                    <label for="image_exposure_mode">Exposure Mode</label>
+                    <select class="u-full-width" id="image_exposure_mode" name="image_exposure_mode">
+                        <option value="auto">auto</option>
+                        <option value="night">night</option>
+                        <option value="nightpreview">nightpreview</option>
+                        <option value="backlight">backlight</option>
+                        <option value="spotlight">spotlight</option>
+                        <option value="snow">snow</option>
+                        <option value="beach">beach</option>
+                        <option value="verylong">verylong</option>
+                        <option value="fixedfps">fixedfps</option>
+                        <option value="antishake">antishake</option>
+                        <option value="fireworks">fireworks</option>
+                        <option value="off">off</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label for="image_awb_mode">AWB Mode</label>
+                    <select class="u-full-width" id="image_awb_mode" name="image_awb_mode">
+                        <option value="auto">auto</option>
+                        <option value="sunlight">sunlight</option>
+                        <option value="cloudy">cloudy</option>
+                        <option value="shade">shade</option>
+                        <option value="tungsten">tungsten</option>
+                        <option value="fluorescent">fluorescent</option>
+                        <option value="incandescent">incandescent</option>
+                        <option value="flash">flash</option>
+                        <option value="horizon">horizon</option>
+                        <option value="off">off</option>
+                    </select>
+                </div>
+            </div>
+            <!--Motion configurations-->
+            <div class="row" style="margin-top: 5%">
+                <h5>Motion</h5>
+            </div>
+            <div class="row">
+                <label class="three columns">
+                    <input type="checkbox" id="motion_enabled" name="motion_enabled">
+                    <span class="label-body">Enabled</span>
+                </label>
+            </div>
+            <div id="motion_settings">
+                <div class="row">
+                    <label class="three columns">
+                        <input type="checkbox" id="motion_nightly_schedule" name="motion_nightly_schedule">
+                        <span class="label-body">Night Only</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="three columns">
+                        <label for="motion_capture_threshold">Capture Count</label>
+                        <input class="u-full-width" type="number" id="motion_capture_threshold" name="motion_capture_threshold">
+                    </div>
+                    <div class="three columns">
+                        <label for="motion_delay">Delay (sec)</label>
+                        <input class="u-full-width" type="number" id="motion_delay" name="motion_delay">
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="three columns">
+                        <label for="motion_sensitivity">Sensitivity</label>
+                        <input class="u-full-width" type="number" id="motion_sensitivity" name="motion_sensitivity">
+                    </div>
+                    <div class="three columns">
+                        <label for="motion_threshold">Threshold</label>
+                        <input class="u-full-width" type="number" id="motion_threshold" name="motion_threshold">
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="three columns">
+                        <label for="motion_percent_change_max">Max Noise Filter (%)</label>
+                        <input class="u-full-width" type="number" id="motion_percent_change_max" name="motion_percent_change_max" placeholder="0-100">
+                    </div>
+                    <div class="three columns">
+                        <label for="motion_event_capture_type">Capture Type</label>
+                        <select class="u-full-width" id="motion_event_capture_type" name="motion_event_capture_type">
+                            <option value="image">image</option>
+                            <option value="video">video</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--Server configurations-->
+            <div class="row" style="margin-top: 5%">
+                <h5>Server</h5>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <label for="server">Server URL</label>
+                    <input class="u-full-width disabled" type="text" id="server" name="server" disabled>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="three columns">
+                    <label for="config_socket_host">Socket Host</label>
+                    <input class="u-full-width" type="text" id="config_socket_host" name="config_socket_host">
+                </div>
+                <div class="three columns">
+                    <label for="config_socket_port">Socket Port</label>
+                    <input class="u-full-width" type="text" id="config_socket_port" name="config_socket_port">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="four columns">
+                    <label for="config_check_interval">Config update interval (min)</label>
+                    <input class="u-full-width" type="number" id="config_check_interval" name="config_check_interval">
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 3%">
+                <input type="hidden" id="version" name="version" />
+                <input class="button-primary" type="submit" value="Update {{ name }}">
+            </div>
+            
+            <div class="row">
+                <span id="success-message" style="color:darkgreen;" hidden>Success</span>
+                <span id="error-message" style="color:darkred;" hidden>Error</span>
+            </div>
+        </form>
+    </div>
+
+    <!-- End Document
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

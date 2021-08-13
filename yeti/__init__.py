@@ -25,4 +25,5 @@ logging.getLogger('').addHandler(handler)
 
 # INITIALIZE SERVER
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='www/static', template_folder='www/templates')
+
