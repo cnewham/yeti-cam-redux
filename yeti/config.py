@@ -1,7 +1,7 @@
 import os
 import errno
 import pickledb
-
+import json
 import logging
 logger = logging.getLogger(__name__)
 
@@ -12,40 +12,88 @@ try:
 except OSError as ex:
     if ex.errno != errno.EEXIST:
         raise
-    
-WEATHER_LOCATION = "weather_location"
-WEATHER_WU_KEY = "wu_key"
-WEATHER_AMBIENT_APP_KEY = "ambient_app_key"
-WEATHER_AMBIENT_API_KEY = "ambient_api_key"
-WEATHER_STATION = "station"
-WEATHER_FEATURES = "features"
-WEATHER_EXPIRE_MIN = "expire_min"
-WEATHER_DARKSKY_API_KEY = "darksky_api_key"
 
 
-def weather():
-    db = pickledb.load(CONFIG_DIR + "/" + "weather.db", True)
-    
-    if not db.get(WEATHER_LOCATION):
-        db.set(WEATHER_LOCATION, "NA")
+class Config(object):
+    db = None
+    config_file = None
 
-    if not db.get(WEATHER_WU_KEY):
-        db.set(WEATHER_WU_KEY, "NA")
+    def __init__(self, config_file):
+        self.config_file = config_file
+        self.load()
 
-    if not db.get(WEATHER_AMBIENT_APP_KEY):
-        db.set(WEATHER_AMBIENT_APP_KEY, "NA")
+    def load(self):
+        self.db = pickledb.load(self.config_file, True)
 
-    if not db.get(WEATHER_AMBIENT_API_KEY):
-        db.set(WEATHER_AMBIENT_API_KEY, "NA")
+    def default(self, key, value):
+        if not self.db.exists(key):
+            self.db.set(key, value)
 
-    if not db.get(WEATHER_STATION):
-        db.set(WEATHER_STATION, "KPACLEAR5")
+    def exists(self, key):
+        return self.db.exists(key)
 
-    if not db.get(WEATHER_EXPIRE_MIN):
-        db.set(WEATHER_EXPIRE_MIN, 10)
+    def get(self, key):
+        if self.db.exists(key):
+            return self.db.get(key)
 
-    if not db.get(WEATHER_DARKSKY_API_KEY):
-        db.set(WEATHER_DARKSKY_API_KEY, "NA")
+        raise KeyError("Key (%s) doesn't exist" % key)
 
-    return db
+    def set(self, key, value):
+        self.db.set(key, value)
 
+    def set_all(self, config_json):
+        logger.info("Updating configs")
+
+        if not config_json or config_json is None:
+            raise ValueError("No config values have been supplied")
+
+        for key, value in self.db.iteritems():
+            self.db.set(key, value)
+
+    def to_json(self):
+        with open(self.config_file, 'r+') as configdb:
+            configs = configdb.read()
+
+        return json.loads(configs)
+
+
+class WeatherConfig(Config):
+    LOCATION = "weather_location"
+    WU_KEY = "wu_key"
+    AMBIENT_APP_KEY = "ambient_app_key"
+    AMBIENT_API_KEY = "ambient_api_key"
+    STATION = "station"
+    FEATURES = "features"
+    EXPIRE_MIN = "expire_min"
+    DARKSKY_API_KEY = "darksky_api_key"
+
+    def __init__(self):
+        super(WeatherConfig, self).__init__(CONFIG_DIR + "/" + "weather.db")
+
+        self.default(self.LOCATION, "NA")
+        self.default(self.WU_KEY, "NA")
+        self.default(self.AMBIENT_APP_KEY, "NA")
+        self.default(self.AMBIENT_API_KEY, "NA")
+        self.default(self.STATION, "KPACLEAR5")
+        self.default(self.EXPIRE_MIN, 10)
+        self.default(self.DARKSKY_API_KEY, "NA")
+
+
+class ClientConfig(Config):
+    API_URL = "api_url"
+    MOTION_DETECT_ENABLED = "motion_detect_enabled"
+    CAPTURE_UPLOAD_MIN = "capture_upload_min"
+
+    def __init__(self):
+        super(ClientConfig, self).__init__(CONFIG_DIR + "/" + "server.db")
+        self.default(self.API_URL, "http://localhost:5000/api/v1/")
+        self.default(self.MOTION_DETECT_ENABLED, False)
+        self.default(self.CAPTURE_UPLOAD_MIN, 60)
+
+
+class DriveConfig(Config):
+    def __init__(self):
+        super(DriveConfig, self).__init__(CONFIG_DIR + "/" + "drive.db")
+
+    def get_folder_id(self, name):
+        return self.get(name)

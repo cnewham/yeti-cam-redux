@@ -2,6 +2,9 @@ import os
 import shutil
 import errno
 
+from yeti.config import DriveConfig
+import yeti.drive as drive
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -12,6 +15,8 @@ try:
 except OSError as ex:
     if ex.errno != errno.EEXIST:
         raise
+
+config = DriveConfig()
 
 
 def get_available_uploads():
@@ -41,7 +46,9 @@ def process(name, upload, args):
     upload.save(capture)
     shutil.copy(capture, os.path.join(uploaddir, "current.jpg"))
 
-    # TODO: Add gdrive support
+    if config.exists(name):
+        drive.upload(capture, event, config.get_folder_id(name))
+
     os.remove(capture)
 
     return filename

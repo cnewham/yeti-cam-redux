@@ -38,7 +38,7 @@ def get_api_creds_path():
     return os.path.join(credential_dir, 'credentials.json')
 
 
-def upload(filename, event, folder_id):
+def upload(capture, event, folder_id):
     if not os.path.exists('token.json'):
         raise Unauthorized("GDrive not authorized")
 
@@ -48,9 +48,9 @@ def upload(filename, event, folder_id):
 
     service = build('drive', 'v3', credentials=creds)
 
-    media_body = MediaFileUpload(filename, mimetype='image/jpeg', resumable=True)
+    media_body = MediaFileUpload(capture, mimetype='image/jpeg', resumable=True)
     body = {
-      'name': os.path.basename(filename),
+      'name': os.path.basename(capture),
       'description': 'Event: %s' % event,
     }
 
@@ -58,10 +58,8 @@ def upload(filename, event, folder_id):
         body['parents'] = [folder_id]
 
     try:
-        upload = service.files().create(
-        body=body,
-        media_body=media_body).execute()
-        logger.debug("Uploaded image to Drive (Id: %s)" % upload['id'])
+        uploaded = service.files().create(body=body, media_body=media_body).execute()
+        logger.debug("Uploaded image to Drive (Id: %s)" % uploaded['id'])
     except:
         logger.exception("Could not upload image to Drive")
         

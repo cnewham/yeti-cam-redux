@@ -1,24 +1,25 @@
 from datetime import datetime, timedelta
 import json
 import requests
-from yeti import astro, config
+from yeti import astro
+from yeti.config import WeatherConfig
 from yeti.cache import WeatherCache
 import logging
 logger = logging.getLogger(__name__)
 
-config_values = config.weather()
+config = WeatherConfig()
 cache = WeatherCache()
 cached = cache.get()
 
 
 def build_darksky_url():
     return "https://api.darksky.net/forecast/%s/%s?exclude=minutely,hourly,currently" % (
-        config_values.get(config.WEATHER_DARKSKY_API_KEY), config_values.get(config.WEATHER_LOCATION))
+        config.get(config.DARKSKY_API_KEY), config.get(config.LOCATION))
 
 
 def build_ambient_weather_url():
     return "https://api.ambientweather.net/v1/devices?applicationKey=%s&apiKey=%s" % (
-        config_values.get(config.WEATHER_AMBIENT_APP_KEY), config_values.get(config.WEATHER_AMBIENT_API_KEY))
+        config.get(config.AMBIENT_APP_KEY), config.get(config.AMBIENT_API_KEY))
 
 
 def refresh():
@@ -113,7 +114,7 @@ def refresh():
             cached["forecast"].append(forecast)
             cached["current"]["icon"] = cached["forecast"][0]["icon"]
 
-        cache.save(cached, config_values.get(config.WEATHER_EXPIRE_MIN))
+        cache.save(cached, config.get(config.EXPIRE_MIN))
     except:
         logger.exception("An error occurred while attempting to gather weather data")
         raise
