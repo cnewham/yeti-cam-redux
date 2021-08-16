@@ -1,4 +1,4 @@
-from yeti import app, uploads
+from yeti import app, uploads, cams
 from flask_restful import Resource, abort, request, reqparse
 from flask import url_for
 from http import HTTPStatus
@@ -15,7 +15,16 @@ class CaptureApi(Resource):
     def get(self):
         response = []
         for name in uploads.get_available_uploads():
-            response.append({"name": name, "url": url_for("captures", name=name, filename="current.jpg")})
+            capture = {
+                "name": name,
+                "url": url_for("captures", name=name, filename="current.jpg")
+            }
+
+            if cams.exists(name):
+                for prop, value in cams.get(name).items():
+                    capture[prop] = value
+
+            response.append(capture)
 
         return response
 

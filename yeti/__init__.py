@@ -1,5 +1,7 @@
 import os
 import logging.handlers
+from yeti import uploads
+from yeti.config import CamsConfig
 from flask import Flask
 
 # INITIALIZE LOGGING
@@ -27,4 +29,11 @@ logging.getLogger('').addHandler(handler)
 
 app = Flask(__name__, static_folder='www/static', template_folder='www/templates')
 app.config['ALLOWED_EXTENSIONS'] = ['JPG', 'JPEG', 'TXT', 'H264']
+
+# INITIALIZE CONFIGS
+
+cams = CamsConfig()
+
+for upload in uploads.get_available_uploads():
+    cams.default(upload)
 

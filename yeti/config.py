@@ -41,13 +41,13 @@ class Config(object):
     def set(self, key, value):
         self.db.set(key, value)
 
-    def set_all(self, config_json):
+    def update(self, configs):
         logger.info("Updating configs")
 
-        if not config_json or config_json is None:
+        if not configs or configs is None:
             raise ValueError("No config values have been supplied")
 
-        for key, value in self.db.iteritems():
+        for key, value in configs.iteritems():
             self.db.set(key, value)
 
     def to_json(self):
@@ -97,3 +97,28 @@ class DriveConfig(Config):
 
     def get_folder_id(self, name):
         return self.get(name)
+
+
+class CamsConfig(Config):
+    def __init__(self):
+        super(CamsConfig, self).__init__(CONFIG_DIR + "/" + "cams.db")
+
+    def default(self, key, value=None):
+        if not self.db.exists(key):
+            self.db.dcreate(key)
+            self.db.dadd(key, ("hidden", False))
+            self.db.dadd(key, ("order", 0))
+
+    def get(self, key):
+        if self.db.exists(key):
+            return self.db.dgetall(key)
+
+        raise KeyError("Key (%s) doesn't exist" % key)
+
+    def update(self, configs):
+        if not configs or configs is None:
+            raise ValueError("No values have been supplied")
+
+        for cam in configs.keys():
+            for key, value in configs[cam].items():
+                self.db.dadd(cam, (key, value))
