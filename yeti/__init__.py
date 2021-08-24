@@ -1,6 +1,5 @@
 import os
 import logging.handlers
-from yeti import uploads
 from yeti.config import CamsConfig
 from flask import Flask
 
@@ -33,7 +32,4 @@ app.config['ALLOWED_EXTENSIONS'] = ['JPG', 'JPEG', 'TXT', 'H264']
 # INITIALIZE CONFIGS
 
 cams = CamsConfig()
-
-for upload in uploads.get_available_uploads():
-    cams.default(upload)
 

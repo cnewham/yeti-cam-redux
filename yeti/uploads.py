@@ -2,6 +2,7 @@ import os
 import shutil
 import errno
 
+from yeti import cams
 from yeti.config import DriveConfig
 import yeti.drive as drive
 
@@ -26,6 +27,7 @@ def get_available_uploads():
         for name in dirs:
             if os.listdir(os.path.join(root, name)):
                 available_uploads.append(name)
+                cams.default(name)
 
     return available_uploads
 
@@ -50,6 +52,9 @@ def process(name, upload, args):
         drive.upload(capture, event, config.get_folder_id(name))
 
     os.remove(capture)
+
+    if not cams.exists(name):
+        cams.default(name)
 
     return filename
 

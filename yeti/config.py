@@ -47,8 +47,9 @@ class Config(object):
         if not configs or configs is None:
             raise ValueError("No config values have been supplied")
 
-        for key, value in configs.iteritems():
-            self.db.set(key, value)
+        for key in configs:
+            if self.exists(key):
+                self.db.set(key, configs[key])
 
     def to_json(self):
         with open(self.config_file, 'r+') as configdb:
@@ -80,15 +81,19 @@ class WeatherConfig(Config):
 
 
 class ClientConfig(Config):
-    API_URL = "api_url"
-    MOTION_DETECT_ENABLED = "motion_detect_enabled"
     CAPTURE_UPLOAD_MIN = "capture_upload_min"
+    MOTION_DETECT_ENABLED = "motion_enabled"
+    MOTION_DETECT_START = "motion_start"
+    MOTION_DETECT_END = "motion_end"
+    MOTION_NIGHT_ONLY = "motion_night_only"
 
     def __init__(self):
-        super(ClientConfig, self).__init__(CONFIG_DIR + "/" + "server.db")
-        self.default(self.API_URL, "http://localhost:5000/api/v1/")
-        self.default(self.MOTION_DETECT_ENABLED, False)
+        super(ClientConfig, self).__init__(CONFIG_DIR + "/" + "client.db")
         self.default(self.CAPTURE_UPLOAD_MIN, 60)
+        self.default(self.MOTION_DETECT_ENABLED, False)
+        self.default(self.MOTION_DETECT_START, None)
+        self.default(self.MOTION_DETECT_END, None)
+        self.default(self.MOTION_NIGHT_ONLY, False)
 
 
 class DriveConfig(Config):

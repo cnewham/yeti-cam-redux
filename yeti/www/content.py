@@ -32,6 +32,11 @@ def weather():
     return render_template('weather.html')
 
 
+@app.route('/configure')
+def configure():
+    return render_template('configure.html')
+
+
 @app.route('/drive/auth')
 def google_drive_auth():
     auth = drive.Authorize(url_for('google_drive_auth', _external=True))
