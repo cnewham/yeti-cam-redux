@@ -29,10 +29,15 @@ class CaptureApi(Resource):
         return response
 
     def post(self, name):
-        logger.debug("Uploading capture for: " + name)
+        logger.debug("Uploading capture (size %s) for: %s" % (request.content_length, name))
 
         args = self.parser.parse_args(request)
-        uploaded = request.files['uploads']
+
+        if 'uploads-gzip' in request.files:
+            uploaded = request.files['uploads-gzip']
+            args["gzip"] = True
+        else:
+            uploaded = request.files['uploads']
 
         if uploaded and self.allowed_file(uploaded.filename):
             filename = uploads.process(name, uploaded, args)

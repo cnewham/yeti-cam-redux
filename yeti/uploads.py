@@ -1,6 +1,9 @@
 import os
 import shutil
 import errno
+import gzip
+from flask import abort
+from http import HTTPStatus
 
 from yeti import cams
 from yeti.config import DriveConfig
@@ -45,7 +48,17 @@ def process(name, upload, args):
     filename = "%s-%s" % (event, os.path.basename(upload.filename))
     logger.info("Processing %s event for image %s" % (event, filename))
     capture = os.path.join(uploaddir, filename)
-    upload.save(capture)
+
+    if "gzip" in args and args["gzip"]:
+        logger.debug("gzip, decompressing...")
+        try:
+            with open(capture, "wb") as decompressed:
+                decompressed.write(gzip.decompress(upload.read()))
+        except gzip.BadGzipFile:
+            abort(HTTPStatus.BAD_REQUEST)
+    else:
+        upload.save(capture)
+
     shutil.copy(capture, os.path.join(uploaddir, "current.jpg"))
 
     if config.exists(name):
