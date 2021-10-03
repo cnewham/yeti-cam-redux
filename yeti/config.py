@@ -86,6 +86,7 @@ class ClientConfig(Config):
     MOTION_DETECT_START = "motion_start"
     MOTION_DETECT_END = "motion_end"
     MOTION_NIGHT_ONLY = "motion_night_only"
+    UPLOAD_THRESHOLD = "upload_threshold"
 
     def __init__(self):
         super(ClientConfig, self).__init__(CONFIG_DIR + "/" + "client.db")
@@ -94,6 +95,7 @@ class ClientConfig(Config):
         self.default(self.MOTION_DETECT_START, None)
         self.default(self.MOTION_DETECT_END, None)
         self.default(self.MOTION_NIGHT_ONLY, False)
+        self.default(self.UPLOAD_THRESHOLD, 2)
 
 
 class DriveConfig(Config):
