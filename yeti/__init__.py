@@ -1,5 +1,6 @@
 import os
-import logging.handlers
+import logging
+from logging.handlers import RotatingFileHandler
 from yeti.config import CamsConfig
 from flask import Flask
 
@@ -16,7 +17,7 @@ LOG_FILENAME = "%s/yeticam.log" % LOG_DIR
 logging.basicConfig(level=LOG_LEVEL,
                     format="%(name)-12s: %(levelname)-8s %(message)s")
 
-handler = logging.handlers.RotatingFileHandler(
+handler = RotatingFileHandler(
               LOG_FILENAME, maxBytes=500000, backupCount=5)
 
 formatter = logging.Formatter("%(asctime)-15s %(levelname)-8s %(name)-20s %(message)s")
