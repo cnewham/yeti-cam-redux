@@ -87,6 +87,7 @@ class ClientConfig(Config):
     MOTION_DETECT_END = "motion_end"
     MOTION_NIGHT_ONLY = "motion_night_only"
     UPLOAD_THRESHOLD = "upload_threshold"
+    CAPTURE_RETENTION_DAYS = "capture_retention_days"
 
     def __init__(self):
         super(ClientConfig, self).__init__(CONFIG_DIR + "/" + "client.db")
@@ -96,6 +97,7 @@ class ClientConfig(Config):
         self.default(self.MOTION_DETECT_END, None)
         self.default(self.MOTION_NIGHT_ONLY, False)
         self.default(self.UPLOAD_THRESHOLD, 2)
+        self.default(self.CAPTURE_RETENTION_DAYS, 30)
 
 
 class DriveConfig(Config):
