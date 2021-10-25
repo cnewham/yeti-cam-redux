@@ -109,14 +109,27 @@ class DriveConfig(Config):
 
 
 class CamsConfig(Config):
+    DEFAULTS = {
+        "hidden": False,
+        "order": -1,
+        "recording": True
+    }
+
     def __init__(self):
         super(CamsConfig, self).__init__(CONFIG_DIR + "/" + "cams.db")
 
     def default(self, key, value=None):
         if not self.db.exists(key):
             self.db.dcreate(key)
-            self.db.dadd(key, ("hidden", False))
-            self.db.dadd(key, ("order", 0))
+
+        for item_key in self.DEFAULTS.keys():
+            try:
+                self.db.dget(key, item_key)
+            except KeyError:
+                self.db.dadd(key, (item_key, self.DEFAULTS[item_key]))
+
+    def available(self):
+        return self.db.getall()
 
     def get(self, key):
         if self.db.exists(key):

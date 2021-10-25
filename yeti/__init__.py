@@ -1,5 +1,6 @@
 import os
 import logging
+import errno
 from logging.handlers import RotatingFileHandler
 from yeti.config import CamsConfig
 from flask import Flask
@@ -30,7 +31,18 @@ logging.getLogger('').addHandler(handler)
 app = Flask(__name__, static_folder='www/static', template_folder='www/templates')
 app.config['ALLOWED_EXTENSIONS'] = ['JPG', 'JPEG', 'TAR.GZ']
 
-# INITIALIZE CONFIGS
+# INITIALIZE CAMS
+
+UPLOAD_DIR = os.getcwd() + "/uploads"
+
+try:
+    os.makedirs(UPLOAD_DIR)
+except OSError as ex:
+    if ex.errno != errno.EEXIST:
+        raise
 
 cams = CamsConfig()
+
+for name in os.listdir(UPLOAD_DIR):
+    cams.default(name)
 

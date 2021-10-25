@@ -23,18 +23,6 @@ except OSError as ex:
 config = DriveConfig()
 
 
-def get_available_uploads():
-    available_uploads = []
-
-    for root, dirs, files in os.walk(UPLOAD_DIR):
-        for name in dirs:
-            if os.listdir(os.path.join(root, name)):
-                available_uploads.append(name)
-                cams.default(name)
-
-    return available_uploads
-
-
 def process(name, upload, args):
     uploaddir = UPLOAD_DIR + "/" + name
     event = args["event"].strip()
@@ -44,6 +32,8 @@ def process(name, upload, args):
     except OSError as ex:
         if ex.errno != errno.EEXIST:
             raise
+
+    cams.default(name)
 
     filename = "%s-%s" % (event, os.path.basename(upload.filename))
     logger.info("Processing %s event for image %s" % (event, filename))
@@ -65,9 +55,6 @@ def process(name, upload, args):
         drive.upload(capture, event, config.get_folder_id(name))
 
     os.remove(capture)
-
-    if not cams.exists(name):
-        cams.default(name)
 
     return filename
 

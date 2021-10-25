@@ -14,7 +14,7 @@ class CaptureApi(Resource):
 
     def get(self):
         response = []
-        for name in uploads.get_available_uploads():
+        for name in cams.available():
             capture = {
                 "name": name,
                 "url": url_for("captures", name=name, filename="current.jpg")
