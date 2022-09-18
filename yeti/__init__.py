@@ -25,6 +25,7 @@ formatter = logging.Formatter("%(asctime)-15s %(levelname)-8s %(name)-20s %(mess
 handler.setFormatter(formatter)
 
 logging.getLogger('').addHandler(handler)
+logging.getLogger('botocore').setLevel(logging.WARN)
 
 # INITIALIZE SERVER
 

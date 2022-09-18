@@ -8,6 +8,7 @@ from http import HTTPStatus
 from yeti import cams
 from yeti.config import DriveConfig
 import yeti.drive as drive
+import yeti.notify as notify
 
 import logging
 logger = logging.getLogger(__name__)
@@ -55,6 +56,9 @@ def process(name, upload, args):
         drive.upload(capture, event, config.get_folder_id(name))
 
     os.remove(capture)
+
+    if event == "motion":
+        notify.send()
 
     return filename
 

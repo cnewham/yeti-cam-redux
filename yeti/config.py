@@ -108,6 +108,16 @@ class DriveConfig(Config):
         return self.get(name)
 
 
+class AwsConfig(Config):
+    MOTION_EVENT_TOPIC = "motion_event_topic"
+    MOTION_EVENT_MESSAGE = "motion_event_message"
+
+    def __init__(self):
+        super(AwsConfig, self).__init__(CONFIG_DIR + "/" + "aws.db")
+        self.default(self.MOTION_EVENT_TOPIC, None)
+        self.default(self.MOTION_EVENT_MESSAGE, "New motion event received")
+
+
 class CamsConfig(Config):
     DEFAULTS = {
         "hidden": False,
