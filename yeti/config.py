@@ -66,7 +66,7 @@ class WeatherConfig(Config):
     STATION = "station"
     FEATURES = "features"
     EXPIRE_MIN = "expire_min"
-    DARKSKY_API_KEY = "darksky_api_key"
+    WEATHERBIT_API_KEY = "weatherbit_api_key"
 
     def __init__(self):
         super(WeatherConfig, self).__init__(CONFIG_DIR + "/" + "weather.db")
@@ -76,8 +76,8 @@ class WeatherConfig(Config):
         self.default(self.AMBIENT_APP_KEY, "NA")
         self.default(self.AMBIENT_API_KEY, "NA")
         self.default(self.STATION, "KPACLEAR5")
-        self.default(self.EXPIRE_MIN, 10)
-        self.default(self.DARKSKY_API_KEY, "NA")
+        self.default(self.EXPIRE_MIN, 20)
+        self.default(self.WEATHERBIT_API_KEY, "NA")
 
 
 class ClientConfig(Config):

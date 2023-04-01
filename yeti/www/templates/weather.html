@@ -54,9 +54,9 @@
         <div class="u-pull-left" style="font-size:2em">WEATHER</div>
         <div class="u-pull-right" style="width:130px;height:80px;">
           <a href="https://www.wunderground.com/personal-weather-station/dashboard?ID=KPACLEAR5" target="_blank">
-            <img src="http://icons.wxug.com/graphics/wu2/logo_130x80.png">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Weath_undergr_logo14.png" style="width:130px;height:80px;">
           </a>
-          <img src="https://darksky.net/dev/img/attribution/poweredby.png">
+          <img src="https://www.weatherbit.io/static/img/logos/weatherbit/color/svg/logo-no-background.svg">
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
       <div class="ten columns">
           <div id="alerts-container">
             <script id="alerts-template" type="text/x-custom-template">
-              <div>
+              <div hidden="true">
                 <li data-class="severity" data-format-target="class" data-format="AlertFormatter">
                   <a data-href="uri" target="_blank"><span data-content="title"></span></a>
                 </li>
@@ -81,7 +81,9 @@
           <div class="row">
             <div class="six columns u-max-full-width" style="padding:10px;">
               <div class="u-pull-left" style="padding:10px 15px 0px 0px">
-                <div data-class="icon" class="wu wu-64 wu-black" data-format="IconFormatter" data-format-options="true" data-format-target="class"></div>
+                <div class="wu wu-64">
+                  <img data-src="icon" data-format="IconFormatter" data-format-target="src" />
+                </div>
               </div>
               <div class="u-pull-left">
                 <h3 data-content="temp" data-format="TempFormatter" style="margin-bottom:0px;"></h3>
@@ -128,7 +130,9 @@
           <div class="row">
             <div class="six columns u-max-full-width" style="padding:10px;">
               <div class="u-pull-left" style="padding:10px 15px 0px 0px">
-                <div data-class="icon" class="wu wu-64 wu-black" data-format="IconFormatter" data-format-target="class" data-format-options="true"></div>
+                <div class="wu wu-64">
+                  <img data-src="icon" data-format="IconFormatter" data-format-target="src" />
+                </div>
               </div>
               <div class="u-pull-left">
                 <h5><span data-content="temp.low" data-format="TempFormatter" data-format-options="true"></span> | <span data-content="temp.high" data-format="TempFormatter" data-format-options="true"></span></h5>
@@ -160,7 +164,7 @@
             </div>
           </div>
           <div class="row">
-            <div style="padding:0px 0px 10px 10px;"><span data-class="astrology.moonphase.value" data-format="MoonPhaseFormatter" data-format-target="class" class="moon" title="Moon Phase"></span><span data-content="astrology.moonphase.name"></span></div>
+            <div style="padding:0px 0px 10px 10px;"><img data-src="astrology.moonphase.value" data-format="MoonPhaseFormatter" data-format-target="src" class="moon" title="Moon Phase" /><span data-content="astrology.moonphase.name"></span></div>
           </div>
         </div>
       </script>

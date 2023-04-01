@@ -37,10 +37,20 @@ function refreshWeatherData(force, callback) {
 }
 
 $(function () {
-
     $.addTemplateFormatter({
         MoonPhaseFormatter : function(value) {
-            return "age" + Math.floor(parseFloat(value) * 31);
+            phase = Math.floor(parseFloat(value) * 31)
+
+            console.log(phase)
+
+            if (phase < 10) {
+                phase = "0" + phase
+            }
+
+            console.log("n-" + phase + ".svg")
+
+            return "https://www.wunderground.com/static/i/moon/n-" + phase + ".svg"
+
         },
         TempFormatter : function(value, round) {
             temp = parseFloat(value);
@@ -77,13 +87,8 @@ $(function () {
                 return ""
             }
         },
-        IconFormatter : function(value, showNight) {
-            var condition = value;
-
-            if (showNight && Date.now() >= sunset)
-                condition += " wu-night";
-
-            return condition;
+        IconFormatter : function(value) {
+            return "https://www.weatherbit.io/static/img/icons/"+ value +".png"
         },
         AlertFormatter: function(value) {
 
