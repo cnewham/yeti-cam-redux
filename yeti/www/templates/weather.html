@@ -54,9 +54,8 @@
         <div class="u-pull-left" style="font-size:2em">WEATHER</div>
         <div class="u-pull-right" style="width:130px;height:80px;">
           <a href="https://www.wunderground.com/personal-weather-station/dashboard?ID=KPACLEAR5" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Weath_undergr_logo14.png" style="width:130px;height:80px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Weath_undergr_logo14.png" style="width:100px;height:60px;padding:35px">
           </a>
-          <img src="https://www.weatherbit.io/static/img/logos/weatherbit/color/svg/logo-no-background.svg">
         </div>
       </div>
     </div>
@@ -81,9 +80,7 @@
           <div class="row">
             <div class="six columns u-max-full-width" style="padding:10px;">
               <div class="u-pull-left" style="padding:10px 15px 0px 0px">
-                <div class="wu wu-64">
-                  <img data-src="icon" data-format="IconFormatter" data-format-target="src" />
-                </div>
+                <div data-class="icon" class="wu wu-64 wu-black" data-format="IconFormatter" data-format-target="class"></div>
               </div>
               <div class="u-pull-left">
                 <h3 data-content="temp" data-format="TempFormatter" style="margin-bottom:0px;"></h3>
@@ -130,11 +127,9 @@
           <div class="row">
             <div class="six columns u-max-full-width" style="padding:10px;">
               <div class="u-pull-left" style="padding:10px 15px 0px 0px">
-                <div class="wu wu-64">
-                  <img data-src="icon" data-format="IconFormatter" data-format-target="src" />
-                </div>
+                <div data-class="icon" class="wu wu-64 wu-black" data-format="IconFormatter" data-format-target="class" data-format-options="true"></div>
               </div>
-              <div class="u-pull-left">
+              <div class="u-pull-left" style="padding-top:15px">
                 <h5><span data-content="temp.low" data-format="TempFormatter" data-format-options="true"></span> | <span data-content="temp.high" data-format="TempFormatter" data-format-options="true"></span></h5>
                 <div data-content="conditions" style="margin-bottom:10px;"></div>
               </div>
@@ -159,6 +154,11 @@
                   <tr>
                     <td>Humidity</td>
                     <td><span data-content="humidity" data-format="PercentageFormatter"></span></td>
+                  </tr>
+                  <tr>
+                    <td>Dew Point</td>
+                    <td><span data-content="dewPoint" data-format="TempFormatter"></span></td>
+                  </tr>
                 </tbody>
               </table>
             </div>

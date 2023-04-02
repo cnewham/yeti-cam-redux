@@ -708,8 +708,8 @@ li.alert-default > a {
 .wu-256.wu-tstorms { background-position: -1069px -537px; }
 .wu-256.wu-unknown { background-position: -1069px -803px; }
 
-
 /*! Darksky converted icons */
+
 .wu-32.clear-day { background-position: -47px -47px; }
 .wu-32.clear-night { background-position: -47px -47px; }
 .wu-32.cloudy { background-position: -89px -47px; }
@@ -733,6 +733,121 @@ li.alert-default > a {
 .wu-64.sleet { background-position: -227px -227px; }
 .wu-64.snow { background-position: -301px -5px; }
 .wu-64.unknown { background-position: -301px -227px; }
+
+
+/*! Weatherbit converted icons */
+
+/* .wu-32.wu-chanceflurries */
+.wu-32.s01d { background-position: -5px -5px; }
+
+/* wu-chancerain */
+.wu-32.d01d, .wu-32.d02d, .wu-32.d03d { background-position: -47px -5px;}
+
+/* .wu-32.wu-chancesleet */
+.wu-32.f01d, .wu-32.s04d { background-position: -89px -5px;}
+
+/* wu-chancetstorms */
+.wu-32.t04d, .wu-32.t04d, .wu-32.t05d { background-position: -5px -47px; }
+
+/* .wu-32.wu-clear */
+.wu-32.c01d { background-position: -47px -47px; }
+
+/* .wu-32.wu-cloudy */
+.wu-32.c04d { background-position: -89px -47px; }
+
+/* .wu-32.wu-flurries */
+.wu-32.s06d { background-position: -131px -47px; }
+
+/* .wu-32.wu-fog */
+.wu-32.a01d, .wu-32.a02d, .wu-32.a05d, .wu-32.a06d { background-position: -5px -89px; }
+
+/* .wu-32.wu-hazy */
+.wu-32.a03d, .wu-32.a04d { background-position: -47px -89px; }
+
+/* .wu-32.wu-mostlycloudy */
+.wu-32.c03d { background-position: -89px -89px; }
+
+/* .wu-32.wu-partlycloudy */
+.wu-32.c02d, .wu-32.c02d { background-position: -5px -131px; }
+
+/* .wu-32.wu-rain */
+.wu-32.r01d, .wu-32.r02d, .wu-32.r03d, .wu-32.r04d, .wu-32.r05d, .wu-32.r06d { background-position: -89px -131px; }
+
+/* .wu-32.wu-sleet */
+.wu-32.s05d { background-position: -131px -131px; }
+
+/* .wu-32.wu-snow */
+.wu-32.s02d, .wu-32.s03d, .wu-32.s01d, .wu-32.s02d { background-position: -173px -5px; }
+
+/* wu-tstorms */
+.wu-32.t01d, .wu-32.t02d, .wu-32.t03d { background-position: -173px -89px; }
+
+/* .wu-32.wu-unknown */
+.wu-32.u00d { background-position: -173px -131px; }
+
+/*
+.wu-32.wu-sunny { background-position: -173px -47px; }
+.wu-32.wu-partlysunny { background-position: -47px -131px; }
+.wu-32.wu-mostlysunny { background-position: -131px -89px; }
+.wu-32.wu-chancesnow { background-position: -131px -5px; }
+*/
+
+
+/* .wu-64.wu-chanceflurries */
+.wu-64.s01d { background-position: -5px -5px; }
+
+/* wu-chancerain */
+.wu-64.d01d, .wu-64.d02d, .wu-64.d03d { background-position: -79px -5px; }
+
+/* .wu-64.wu-chancesleet */
+.wu-64.f01d, .wu-64.s04d { background-position: -153px -5px; }
+
+/* wu-chancetstorms */
+.wu-64.t04d, .wu-64.t04d, .wu-64.t05d { background-position: -5px -79px; }
+
+/* .wu-64.wu-clear */
+.wu-64.c01d { background-position: -79px -79px; }
+
+/* .wu-64.wu-cloudy */
+.wu-64.c04d { background-position: -153px -79px; }
+
+/* .wu-64.wu-flurries */
+.wu-64.s06d { background-position: -227px -79px; }
+
+/* .wu-64.wu-fog */
+.wu-64.a01d, .wu-64.a02d, .wu-64.a05d, .wu-64.a06d { background-position: -5px -153px; }
+
+/* .wu-64.wu-hazy */
+.wu-64.a03d, .wu-64.a04d { background-position: -79px -153px; }
+
+/* .wu-64.wu-mostlycloudy */
+.wu-64.c03d { background-position: -153px -153px; }
+
+/* .wu-64.wu-partlycloudy */
+.wu-64.c02d, .wu-64.c02d { background-position: -5px -227px; }
+
+/* .wu-64.wu-rain */
+.wu-64.r01d, .wu-64.r02d, .wu-64.r03d, .wu-64.r04d, .wu-64.r05d, .wu-64.r06d { background-position: -153px -227px; }
+
+/* .wu-64.wu-sleet */
+.wu-64.s05d { background-position: -227px -227px; }
+
+/* .wu-64.wu-snow */
+.wu-64.s02d, .wu-64.s03d, .wu-64.s01d, .wu-64.s02d { background-position: -301px -5px; }
+
+/* wu-tstorms */
+.wu-64.t01d, .wu-64.t02d, .wu-64.t03d { background-position: -301px -153px; }
+
+/* .wu-64.wu-unknown */
+.wu-64.u00d { background-position: -301px -227px; }
+
+/*
+.wu-64.wu-sunny { background-position: -301px -79px; }
+.wu-64.wu-partlysunny { background-position: -79px -227px; }
+.wu-64.wu-mostlysunny { background-position: -227px -153px; }
+.wu-64.wu-chancesnow { background-position: -227px -5px; }
+*/
+
 
 
 /* Clearing

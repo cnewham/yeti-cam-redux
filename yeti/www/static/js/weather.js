@@ -41,13 +41,9 @@ $(function () {
         MoonPhaseFormatter : function(value) {
             phase = Math.floor(parseFloat(value) * 31)
 
-            console.log(phase)
-
             if (phase < 10) {
                 phase = "0" + phase
             }
-
-            console.log("n-" + phase + ".svg")
 
             return "https://www.wunderground.com/static/i/moon/n-" + phase + ".svg"
 
@@ -88,7 +84,12 @@ $(function () {
             }
         },
         IconFormatter : function(value) {
-            return "https://www.weatherbit.io/static/img/icons/"+ value +".png"
+            var condition = value;
+
+            if (Date.now() >= sunset)
+                condition += " wu-night";
+
+            return condition;
         },
         AlertFormatter: function(value) {
 
